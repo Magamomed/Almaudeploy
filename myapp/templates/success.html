@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Успех</title>
+    <style>
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Форма успешно отправлена!</h2>
+    <p>Выберите дальнейшее действие:</p>
+    <button onclick="location.href='{% url 'schedule_interview' %}'">Записаться на собеседование</button>
+    <button onclick="location.href='{% url 'schedule_event' %}'">Записаться на мероприятие</button>
+</div>
+
+</body>
+</html>

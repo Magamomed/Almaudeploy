@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ event.title }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+        .event-detail {
+            text-align: center;
+        }
+        .event-detail img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .event-detail h2 {
+            margin-top: 20px;
+        }
+        .event-detail p {
+            margin-top: 20px;
+        }
+        .event-detail button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .event-detail button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="event-detail">
+        {% if event.banner_image %}
+            <img src="{{ event.banner_image.url }}" alt="{{ event.title }}">
+        {% endif %}
+        <h2>{{ event.title }}</h2>
+        <p>{{ event.date }}</p>
+        <p>{{ event.description }}</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Записаться</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

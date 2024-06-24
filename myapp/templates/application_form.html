@@ -1,0 +1,218 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анкета Абитуриента</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        .left-column {
+            display: none;
+        }
+        .right-column {
+            flex-grow: 1;
+            padding-left: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #ffb74d;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-check {
+            display: flex;
+            align-items: center;
+        }
+        .form-check input {
+            margin-right: 10px;
+        }
+        .form-control-multiple {
+            height: auto;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .profile-images {
+            display: flex;
+            flex-direction: column;
+        }
+        .profile-image {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .profile-image img {
+            width: 100%;
+            max-width: 150px;
+            border-radius: 10px;
+        }
+        .profile-image-bg1 { background-color: #719ce4; }
+        .profile-image-bg2 { background-color: #d082e2; }
+        .profile-image-bg3 { background-color: #688eb0; }
+        .profile-image-bg4 { background-color: #8479c9; }
+
+        .logo img {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 10px;
+            margin: 0 auto;
+            display: block;
+        }
+        .errorlist { color: red; }
+
+        @media (min-width: 768px) {
+            .container {
+                flex-direction: row;
+            }
+            .left-column {
+                display: block;
+                width: 150px;
+                padding-right: 20px;
+                border-right: 2px solid #ffb74d;
+            }
+            .right-column {
+                padding-left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="left-column">
+        <div class="profile-images">
+            <div class="profile-image profile-image-bg1">
+                <img src="{% static 'images/Blue.jpg' %}" alt="Image 1">
+            </div>
+            <div class="profile-image profile-image-bg2">
+                <img src="{% static 'images/Purple.jpg' %}" alt="Image 2">
+            </div>
+            <div class="profile-image profile-image-bg3">
+                <img src="{% static 'images/blue2.jpg' %}" alt="Image 3">
+            </div>
+            <div class="profile-image profile-image-bg4">
+                <img src="{% static 'images/purple2.jpg' %}" alt="Image 4">
+            </div>
+        </div>
+    </div>
+    <div class="right-column">
+        <div class="logo">
+            <img src="{% static 'images/log2.png' %}" alt="logotip">
+        </div>
+        <h2>Анкета Абитуриента</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="form-group">
+                <label for="fio">ФИО:</label>
+                {{ form.fio }}
+            </div>
+            <div class="form-group">
+                <label for="city">Город:</label>
+                {{ form.city }}
+            </div>
+            <div class="form-group">
+                <label for="school">Школа/колледж:</label>
+                {{ form.school }}
+            </div>
+            <div class="form-group">
+                <label for="student_class">Класс:</label>
+                {{ form.student_class }}
+            </div>
+            <div class="form-group">
+                <label for="phone">Сот.тел.:</label>
+                {{ form.phone }}
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                {{ form.email }}
+                {% if form.errors.email %}
+                <div class="errorlist">
+                    <ul>
+                        {% for error in form.errors.email %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="telegram">Telegram:</label>
+                {{ form.telegram }}
+            </div>
+            <div class="form-group">
+                <label for="instagram">Instagram:</label>
+                {{ form.instagram }}
+            </div>
+            <div class="form-group">
+                <label for="parent_contacts">Контакты родителей:</label>
+                {{ form.parent_contacts }}
+            </div>
+            <div class="form-group">
+                <label for="parent_fio">ФИО родителя:</label>
+                {{ form.parent_fio }}
+            </div>
+            <div class="form-group">
+                <label for="specialties">Интересующие специальности:</label>
+                {{ form.specialties }}
+            </div>
+            <div class="form-group form-check">
+                <label for="language_kaz">Казахский язык:</label>
+                {{ form.language_kaz }}
+            </div>
+            <div class="form-group form-check">
+                <label for="language_rus">Русский язык:</label>
+                {{ form.language_rus }}
+            </div>
+            <div class="form-group form-check">
+                <label for="language_eng">Английский язык:</label>
+                {{ form.language_eng }}
+            </div>
+            <div class="form-group">
+                <label for="university">В каком ВУЗе ты планируешь обучение и почему?</label>
+                {{ form.university }}
+            </div>
+            <button type="submit">Отправить</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
