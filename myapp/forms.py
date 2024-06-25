@@ -7,6 +7,7 @@ from bootstrap_datepicker_plus.widgets import DatePickerInput
 from .models import Event
 from django.core.exceptions import ValidationError
 from django import template
+from .models import Schedule
 
 
 
@@ -24,13 +25,18 @@ class InterviewScheduleForm(forms.ModelForm):
             }),
         }
 
+class ScheduleForm(forms.ModelForm):
+    class Meta:
+        model = Schedule
+        fields = ['school_name', 'date_time', 'format', 'location']
+
 class ApplicationForm(forms.ModelForm):
     class Meta:
         model = Application
         fields = [
             'fio', 'city', 'school', 'student_class', 'phone', 'email',
             'telegram', 'instagram', 'parent_contacts', 'parent_fio',
-            'specialties', 'language_kaz', 'language_rus', 'language_eng', 'university'
+            'specialties', 'profile_subjects', 'language_kaz', 'language_rus', 'language_eng', 'university'
         ]
         widgets = {
             'fio': forms.TextInput(attrs={'placeholder': 'Введите ФИО'}),
@@ -43,6 +49,7 @@ class ApplicationForm(forms.ModelForm):
             'instagram': forms.TextInput(attrs={'placeholder': 'Введите Instagram'}),
             'parent_contacts': forms.TextInput(attrs={'placeholder': 'Введите контакты родителей'}),
             'parent_fio': forms.TextInput(attrs={'placeholder': 'Введите ФИО родителя'}),
+            'profile_subjects': forms.TextInput(attrs={'placeholder': 'Введите профильные предметы'}),
             'specialties': forms.SelectMultiple(attrs={'placeholder': 'Выберите специальности', 'class': 'form-control'}),
             'language_kaz': forms.CheckboxInput(),
             'language_rus': forms.CheckboxInput(),

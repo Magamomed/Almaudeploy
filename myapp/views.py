@@ -8,6 +8,8 @@ from .models import InterviewSchedule, Application
 from .forms import EventForm
 from .models import Event, Application, EventRegistration
 from django.contrib import messages
+from .models import Schedule
+from .forms import ScheduleForm
 
 
 
@@ -50,9 +52,22 @@ def schedule_interview(request):
             messages.error(request, 'Пожалуйста, исправьте ошибки в форме.')
     else:
         form = InterviewScheduleForm()
-    return render(request, 'schedule_interview.html', {'form': form})
+        schedules = Schedule.objects.all()
+        return render(request, 'schedule_interview.html', {'form': form, 'schedules': schedules})
+    
 
 
+
+def schedule_view(request):
+    schedules = Schedule.objects.all()
+    if request.method == 'POST':
+        form = ScheduleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('success_page')  # Измените на нужный URL
+    else:
+        form = ScheduleForm()
+    return render(request, 'schedule_form.html', {'form': form, 'schedules': schedules})
 
 
 

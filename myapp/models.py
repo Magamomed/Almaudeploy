@@ -42,6 +42,7 @@ class Application(models.Model):
     parent_contacts = models.CharField(max_length=255)
     parent_fio = models.CharField(max_length=255)
     university = models.TextField()
+    profile_subjects = models.TextField(verbose_name='Профильные предметы', blank=True, null=True)
     specialties = models.ManyToManyField(Speciality, blank=True)
     language_kaz = models.BooleanField(default=False)
     language_rus = models.BooleanField(default=False)
@@ -57,7 +58,14 @@ class InterviewSchedule(models.Model):
     def __str__(self):
         return f"{self.application.fio} - {self.date}"
     
+class Schedule(models.Model):
+    school_name = models.CharField(max_length=255)
+    date_time = models.DateTimeField()
+    format = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
 
+    def __str__(self):
+        return f"{self.school_name} - {self.date_time}"
 
 
 class Event(models.Model):

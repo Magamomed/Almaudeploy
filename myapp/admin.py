@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Application, Speciality, InterviewSchedule, Event, EventRegistration
+from .models import Application, Speciality, InterviewSchedule, Event, EventRegistration, Schedule
 
 
 @admin.register(Speciality)
@@ -27,6 +27,14 @@ class InterviewScheduleAdmin(admin.ModelAdmin):
     def get_application_email(self, obj):
         return obj.application.email if obj.application else 'No Email'
     get_application_email.short_description = 'Email'
+
+
+@admin.register(Schedule)
+class ScheduleAdmin(admin.ModelAdmin):
+    list_display = ('school_name', 'date_time', 'format', 'location')
+    list_filter = ('school_name', 'format')
+    search_fields = ('school_name', 'location')
+
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
